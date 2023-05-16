@@ -1,4 +1,4 @@
-package com.example.demo.entite;
+package com.example.demo.Entite;
 
 import jakarta.annotation.Generated;
 import jakarta.persistence.Column;

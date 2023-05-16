@@ -1,4 +1,4 @@
-package com.example.demo.entite;
+package com.example.demo.Entite;
 
 import org.hibernate.annotations.ValueGenerationType;
 
@@ -11,13 +11,13 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name="object")
-public class Object {
+public class Objet {
 @Id 
 @GeneratedValue(strategy =GenerationType.IDENTITY)
 private Long id ;
 @Column(name ="type_object")
 private String type ;
-public Object(Long id, String type) {
+public Objet(Long id, String type) {
 	super();
 	this.id = id;
 	this.type = type;

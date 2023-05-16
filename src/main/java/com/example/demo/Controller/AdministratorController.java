@@ -1,4 +1,4 @@
-package com.example.demo.controlller;
+package com.example.demo.Controller;
 
 import java.util.List;
 
@@ -11,26 +11,26 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.entite.Administrator;
-import com.example.demo.repository.AdministratorRepository;
+import com.example.demo.Entite.Administrator;
+import com.example.demo.Repository.*;
 
 @RestController
 @RequestMapping("/api/v2/")
 public class AdministratorController {
 	@Autowired
-	private AdministratorRepository administratorreposit;
+	private AdministratorRepository administratorrepository;
 	@GetMapping ("/find")
 	public List<Administrator> findAllAdministrator()
 	{
-		return administratorreposit.findAll();
+		return administratorrepository.findAll();
 	}
 	@PostMapping("/save")
 	public Administrator Save(@RequestBody Administrator adr) {
-		return administratorreposit.save(adr);
+		return administratorrepository.save(adr);
 	}
 	@DeleteMapping("/delete")
 	public void deleteByid(Long id) {
-		administratorreposit.deleteById(id);
+		administratorrepository.deleteById(id);
 	}
 
 }
