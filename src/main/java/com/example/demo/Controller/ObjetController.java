@@ -15,7 +15,7 @@ import com.example.demo.Entite.Objet;
 import com.example.demo.Repository.ObjectRepository;
 
 @RestController
-@RequestMapping("/api/v5/")
+@RequestMapping("/api/v4/")
 public class ObjetController {
 	@Autowired
 	private ObjectRepository objectrepo;

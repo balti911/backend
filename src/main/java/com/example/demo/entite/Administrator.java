@@ -20,18 +20,41 @@ private String nom;
 private String  prenom;
 @Column(name ="email_Admin")
 private String email;
+@Column(name="nom_util")
+private String nom_util;
+@Column(name="password")
+private String password;
 //constructor using file 
-public Administrator(Long id, String nom, String prenom, String email) {
+public Administrator(Long id, String nom, String prenom, String email ,String nom_util,String password ) {
 	super();
 	this.id = id;
 	this.nom = nom;
 	this.prenom = prenom;
 	this.email = email;
+	this.nom_util=nom_util;
+	this.password=password;
 }
 //getters and setters
+
 public Long getId() {
 	return id;
 }
+public String getNom_util() {
+	return nom_util;
+}
+
+public void setNom_util(String nom_util) {
+	this.nom_util = nom_util;
+}
+
+public String getPassword() {
+	return password;
+}
+
+public void setPassword(String password) {
+	this.password = password;
+}
+
 public void setId(Long id) {
 	this.id = id;
 }

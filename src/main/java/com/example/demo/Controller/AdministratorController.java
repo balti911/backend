@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Admin;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,6 +27,10 @@ public class AdministratorController {
 	}
 	@PostMapping("/save")
 	public Administrator Save(@RequestBody Administrator adr) {
+		String mtp=adr.getPassword();
+		BCryptPasswordEncoder bcrypt=new BCryptPasswordEncoder();
+		String encryptedpassword=bcrypt.encode(mtp);
+		adr.setPassword(encryptedpassword);
 		return administratorrepository.save(adr);
 	}
 	@DeleteMapping("/delete")

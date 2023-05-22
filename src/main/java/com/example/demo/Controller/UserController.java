@@ -3,7 +3,9 @@ package com.example.demo.Controller;
 import java.util.List;
 
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,6 +25,10 @@ public class UserController {
 	public List<User> GetAlluser(){return userrepository.findAll();}
 	@PostMapping("/save")
 	public User save(@RequestBody User sr) {
+		String mtp=sr.getPassword();
+		BCryptPasswordEncoder bcrypt=new BCryptPasswordEncoder();
+		String encryptedpassword=bcrypt.encode(mtp);
+		sr.setPassword(encryptedpassword);
 		return userrepository.save(sr);}
 	@DeleteMapping("/delete")
 	public void DeleteById(Long id )
