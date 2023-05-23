@@ -1,5 +1,7 @@
 package com.example.demo.Entite;
 
+import java.util.List;
+
 import jakarta.annotation.Generated;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,19 +20,29 @@ public class ChatRoom {
 	private String nom;
 	@Column(name="Date_room")
     private String date;
+	private  List<User> participants;
 	//const empty 
 	public ChatRoom()
 	{}
 	//const withe files 
-	public ChatRoom(Long id, String nom, String date) {
+	public ChatRoom(Long id, String nom, String date,List<User> participants) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.date = date;
+		this.participants=participants;
 	}
 	//getters and setters
+	
 	public Long getId() {
 		return id;
+	}
+	
+	public List<User> getParticipants() {
+		return participants;
+	}
+	public void setParticipants(List<User> participants) {
+		this.participants = participants;
 	}
 	public void setId(Long id) {
 		this.id = id;
@@ -47,5 +59,6 @@ public class ChatRoom {
 	public void setDate(String date) {
 		this.date = date;
 	}
+	
 	
 }

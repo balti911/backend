@@ -16,7 +16,7 @@ import com.example.demo.Entite.Administrator;
 import com.example.demo.Repository.*;
 
 @RestController
-@RequestMapping("/api/v2/")
+@RequestMapping("/api/Administrator/")
 public class AdministratorController {
 	@Autowired
 	private AdministratorRepository administratorrepository;

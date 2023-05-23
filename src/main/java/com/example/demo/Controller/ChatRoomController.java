@@ -11,7 +11,7 @@ import com.example.demo.Entite.ChatRoom;
 import com.example.demo.Repository.*;
 
 @RestController
-@RequestMapping("/api/v3/")
+@RequestMapping("/api/chatroom/")
 public class ChatRoomController {
 @Autowired
 private ChatRoomRepository chatroomrpo;
