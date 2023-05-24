@@ -1,6 +1,7 @@
 package com.example.demo.Entite;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.hibernate.annotations.ValueGenerationType;
 
@@ -20,17 +21,29 @@ public class VideoConference {
     private LocalDateTime startTime;
 	@Column(name="end_time")
     private LocalDateTime endTime;
+	@Column(name="participant")
+	private List<User> participant;
 	//const
-	public VideoConference(Long id, LocalDateTime startTime, LocalDateTime endTime) {
+	public VideoConference(Long id, LocalDateTime startTime, LocalDateTime endTime , List<User> participant) {
 		super();
 		this.id = id;
 		this.startTime = startTime;
 		this.endTime = endTime;
+		this.participant=participant;
 	}
 	//G&S
+	
 	public Long getId() {
 		return id;
 	}
+	public List<User> getParticipant() {
+		return participant;
+	}
+
+	public void setParticipant(List<User> participant) {
+		this.participant = participant;
+	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}

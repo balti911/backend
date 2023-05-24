@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Entite.ChatRoom;
+import com.example.demo.Entite.File;
 import com.example.demo.Entite.User;
+import com.example.demo.Entite.VideoConference;
 import com.example.demo.Repository.*;
 
 @RestController
@@ -40,6 +42,8 @@ public class UserController {
 	@Autowired
 	private  ChatRoomRepository chromrp;
 	private UserRepository userrepo;
+	private VideoConferenceRepository videoConfRepo;
+	private FileRepository filerepo;
 	//function join room
 	public void joinRoom(Long idchatroom,Long iduser)
 	{
@@ -73,4 +77,34 @@ public class UserController {
 	
 
 }
+	 // function participate vedeoConf
+	 public void participateVideoConference(Long videoConferenceId, Long userId) {
+	        VideoConference videoConference = videoConfRepo.findById(videoConferenceId)
+	                .orElseThrow(() -> new IllegalArgumentException("Video conference not found"));
+
+	        User participant = userrepo.findById(userId)
+	                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+	        videoConference.getParticipant().add(participant);
+	        videoConfRepo.save(videoConference);
+	    }
+	// function sharefile
+	 public File shareFile(String filename) {
+	        File file = new File();
+	        file.setFilename(filename);
+
+	        return filerepo.save(file);
+	    }
+	 //function leaveRoom
+	 public void leaveRoom(Long chatRoomId, Long userId) {
+	        ChatRoom chatRoom = chromrp.findById(chatRoomId)
+	                .orElseThrow(() -> new IllegalArgumentException("Chat room not found"));
+
+	        User user = userrepo.findById(userId)
+	                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+
+	        chatRoom.getParticipants().remove(user);
+	        chromrp.save(chatRoom);
+	    }
+	 
 }
