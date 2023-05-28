@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Entite.ChatRoom;
@@ -45,6 +46,7 @@ public class UserController {
 	private VideoConferenceRepository videoConfRepo;
 	private FileRepository filerepo;
 	//function join room
+	@PostMapping("/{chatRoomId}/join/{userId}")
 	public void joinRoom(Long idchatroom,Long iduser)
 	{
 		ChatRoom chtroom=chromrp.findById(idchatroom).orElseThrow(() -> new IllegalArgumentException("Chat room not found"));;
@@ -54,6 +56,7 @@ public class UserController {
 	}
 		
 	//Function CreateRoom
+	@PostMapping("/{roomName}/create/{CreatorId}")
 	public ChatRoom createRoom(String roomName, Long creatorId) {
         User creator = userrepo.findById(creatorId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
@@ -65,6 +68,7 @@ public class UserController {
         return chromrp.save(chatRoom);
     }
 //function invite user
+	@PostMapping("/{chatRoomId}/invite/{userId}")
 	 public void inviteUser(Long chatRoomId, Long userId) {
 	        ChatRoom chatRoom = chromrp.findById(chatRoomId)
 	                .orElseThrow(() -> new IllegalArgumentException("Chat room not found"));
@@ -78,6 +82,7 @@ public class UserController {
 
 }
 	 // function participate vedeoConf
+	@PostMapping("/{videoid}/participate/{userId}")
 	 public void participateVideoConference(Long videoConferenceId, Long userId) {
 	        VideoConference videoConference = videoConfRepo.findById(videoConferenceId)
 	                .orElseThrow(() -> new IllegalArgumentException("Video conference not found"));
@@ -89,13 +94,15 @@ public class UserController {
 	        videoConfRepo.save(videoConference);
 	    }
 	// function sharefile
-	 public File shareFile(String filename) {
+	@PostMapping("/share")
+	 public File shareFile(@RequestParam String filename) {
 	        File file = new File();
 	        file.setFilename(filename);
 
 	        return filerepo.save(file);
 	    }
 	 //function leaveRoom
+	@PostMapping("/{chatRoomId}/leavRoom/{userId}")
 	 public void leaveRoom(Long chatRoomId, Long userId) {
 	        ChatRoom chatRoom = chromrp.findById(chatRoomId)
 	                .orElseThrow(() -> new IllegalArgumentException("Chat room not found"));

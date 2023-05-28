@@ -18,19 +18,21 @@ public class ChatRoom {
 	private Long id;
 	@Column(name="nom_room")
 	private String nom;
-	@Column(name="Date_room")
+	@Column(name="Room_Date")
     private String date;
 	private  List<User> participants;
+	private String decsription;
 	//const empty 
 	public ChatRoom()
 	{}
 	//const withe files 
-	public ChatRoom(Long id, String nom, String date,List<User> participants) {
+	public ChatRoom(Long id, String nom, String date,List<User> participants,String description) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.date = date;
 		this.participants=participants;
+		this.decsription=description;
 	}
 	//getters and setters
 	
@@ -58,6 +60,12 @@ public class ChatRoom {
 	}
 	public void setDate(String date) {
 		this.date = date;
+	}
+	public String getDecsription() {
+		return decsription;
+	}
+	public void setDecsription(String decsription) {
+		this.decsription = decsription;
 	}
 	
 	
