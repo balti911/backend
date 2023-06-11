@@ -23,8 +23,10 @@ public class User {
 	private String password ;
     @Column(name="nom_util")
     private String nomUtil;
+    @Column(name="etat_user")
+    boolean etat;
     //const 
-	public User(Long id, String nom, String prenom, String email,String nomUtil, String password) {
+	public User(Long id, String nom, String prenom, String email,String nomUtil, String password ,boolean etat) {
 		super();
 		this.id = id;
 		this.nom = nom;
@@ -32,6 +34,7 @@ public class User {
 		this.email = email;
 		this.nomUtil=nomUtil;
 		this.password=password;
+		this.etat=etat;
 	}
 	//G&S
 	public Long getId() {
@@ -69,6 +72,12 @@ public class User {
 	}
 	public void setEmail(String email) {
 		this.email = email;
+	}
+	public boolean isEtat() {
+		return etat;
+	}
+	public void setEtat(boolean etat) {
+		this.etat = etat;
 	}
 	
 	

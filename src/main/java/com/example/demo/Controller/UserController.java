@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Entite.ChatRoom;
 import com.example.demo.Entite.File;
+import com.example.demo.Entite.Report;
 import com.example.demo.Entite.User;
 import com.example.demo.Entite.VideoConference;
 import com.example.demo.Repository.*;
@@ -45,6 +46,7 @@ public class UserController {
 	private UserRepository userrepo;
 	private VideoConferenceRepository videoConfRepo;
 	private FileRepository filerepo;
+	private RepportRepository rprepository;
 	//function join room
 	@PostMapping("/{chatRoomId}/join/{userId}")
 	public void joinRoom(Long idchatroom,Long iduser)
@@ -94,13 +96,20 @@ public class UserController {
 	        videoConfRepo.save(videoConference);
 	    }
 	// function sharefile
-	@PostMapping("/share")
-	 public File shareFile(@RequestParam String filename) {
-	        File file = new File();
-	        file.setFilename(filename);
-
-	        return filerepo.save(file);
-	    }
+	@PostMapping("/{chatRoomId}/{userId}/share/{fileName}/{file_id}")
+	 public void shareFile(Long chatRoomId, Long userId, String fileName,Long file_id) {
+        ChatRoom chatRoom = chromrp.findById(chatRoomId)
+                .orElseThrow(() -> new IllegalArgumentException("Chat room not found"));
+        User user = userrepo.findById(userId)
+                .orElseThrow(() -> new IllegalArgumentException("User not found"));
+        if (!chatRoom.getParticipants().contains(user)) {
+            throw new IllegalArgumentException("User is not authorized to share files in this chat room");
+        }
+        File file = new File(file_id,fileName);
+        filerepo.save(file);
+        chatRoom.getSharedFile().add(file);
+        chromrp.save(chatRoom);
+    }
 	 //function leaveRoom
 	@PostMapping("/{chatRoomId}/leavRoom/{userId}")
 	 public void leaveRoom(Long chatRoomId, Long userId) {
@@ -113,5 +122,9 @@ public class UserController {
 	        chatRoom.getParticipants().remove(user);
 	        chromrp.save(chatRoom);
 	    }
-	 
+	
+	 // function create report 
+	public Report createReport(@RequestBody Report rp) {
+		return rprepository.save(rp);
+	}
 }

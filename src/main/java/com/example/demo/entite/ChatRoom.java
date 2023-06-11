@@ -20,19 +20,27 @@ public class ChatRoom {
 	private String nom;
 	@Column(name="Room_Date")
     private String date;
+	@Column(name="etat_chatrom")
+	boolean etat;
+	@Column(name="participates_user")
 	private  List<User> participants;
+	@Column(name=" shared_files")
+	private List<File> sharedFile;
+	@Column(name="description")
 	private String decsription;
 	//const empty 
 	public ChatRoom()
 	{}
 	//const withe files 
-	public ChatRoom(Long id, String nom, String date,List<User> participants,String description) {
+	public ChatRoom(Long id, String nom, String date,List<User> participants,String description,boolean etat,List<File> sharedFile) {
 		super();
 		this.id = id;
 		this.nom = nom;
 		this.date = date;
 		this.participants=participants;
 		this.decsription=description;
+		this.etat=etat;
+		this.sharedFile=sharedFile;
 	}
 	//getters and setters
 	
@@ -66,6 +74,18 @@ public class ChatRoom {
 	}
 	public void setDecsription(String decsription) {
 		this.decsription = decsription;
+	}
+	public boolean isEtat() {
+		return etat;
+	}
+	public void setEtat(boolean etat) {
+		this.etat = etat;
+	}
+	public List<File> getSharedFile() {
+		return sharedFile;
+	}
+	public void setSharedFile(List<File> sharedFile) {
+		this.sharedFile = sharedFile;
 	}
 	
 	

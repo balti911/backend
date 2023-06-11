@@ -1,6 +1,7 @@
 package com.example.demo.Controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.kafka.KafkaProperties.Admin;
@@ -14,6 +15,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.Entite.Administrator;
 import com.example.demo.Entite.ChatRoom;
+import com.example.demo.Entite.Report;
+import com.example.demo.Entite.Statistics;
 import com.example.demo.Entite.User;
 import com.example.demo.Repository.*;
 
@@ -42,6 +45,8 @@ public class AdministratorController {
 	//repository
 	private  ChatRoomRepository chromrp;
 	private UserRepository userrepo;
+	private RepportRepository reportrepo;
+	private StaticsRepository strepo;
 //function create chatRoom
 	@PostMapping("/createChatroom")
 	 public void createChatRoom(ChatRoom chatRoom) {
@@ -112,4 +117,19 @@ public class AdministratorController {
 	    public void deleteUser(Long userId) {
 	    	userrepo.deleteById(userId);
 	    }
+//function checkReports
+public void checkReports(List<Long> reportIds) {
+    for (Long reportId : reportIds) {
+        Report report = reportrepo.findById(reportId)
+                .orElseThrow(() -> new IllegalArgumentException("Report not found"));
+
+     }
+}
+// fonction chekstatistic 
+@GetMapping("/chekStatistic")
+public Optional<Statistics> chekStatistic (Long idstatistic) {
+	
+return	strepo.findById(idstatistic);
+}
+
 }
